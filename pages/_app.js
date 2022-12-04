@@ -29,18 +29,15 @@ function MyApp({ Component, pageProps }) {
     new FletchWalletAdapter()
   ];
 
-  return<>
-        <WalletProvider
-          wallets={wallets}
-          autoConnect={false} /** allow auto wallet connection or not **/
-          onError={(error) => {
-            console.log('Handle Error Message', error);
-          }}
-          >
-              <Component {...pageProps} />
-              <ToastContainer />
-        </WalletProvider>
-    </>
+  return <WalletProvider
+      wallets={wallets}
+      autoConnect={false} /** allow auto wallet connection or not **/
+      onError={(error) => {
+        console.log('Handle Error Message', error);
+      }}>
+        <Component {...pageProps} />
+        <ToastContainer />
+    </WalletProvider>
 }
 
 export default MyApp

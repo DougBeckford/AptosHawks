@@ -121,17 +121,6 @@
   right: 20px;
 }
 
-.topcornerMore {
-  position: absolute;
-  top: 15px;
-  right: 150px;
-}
-
-.topcornerMore h1{
-  color:white;
-  cursor:pointer
-}
-
 .topcorner h4 {
   font-family: 'Josefin Sans', sans-serif !important;
 }

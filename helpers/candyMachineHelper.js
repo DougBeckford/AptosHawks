@@ -3,15 +3,11 @@ import {candyMachineAddress, collectionName, mode, NODE_URL, CONTRACT_ADDRESS, S
 
 
 async function getCandyMachineResourceAccount() {
-    // console.log(`url::::: ${NODE_URL}/accounts/${candyMachineAddress}/resources`)
     const response = await axios.get(`${NODE_URL}/accounts/${candyMachineAddress}/resources`);
-    // console.log("response: ",response)
     const resources = response.data;
 
     for (const resource of resources) {
-        // console.log("resource type: ",resource.type)
         if (resource.type === `${CONTRACT_ADDRESS}::${SERVICE_NAME}::ResourceData`) {
-            // console.log("passed the test: ",resource.data.resource_account.account)
             return resource.data.resource_account.account;
         }
     }
@@ -45,7 +41,6 @@ async function getCandyMachineCollectionInfo(
 async function getCandyMachineConfigData(
     candyMachineConfigHandle
 ) {
-
     const data = JSON.stringify({
         "key_type": "vector<u8>",
         "value_type": `${CONTRACT_ADDRESS}::${SERVICE_NAME}::CollectionConfig`,
@@ -56,8 +51,6 @@ async function getCandyMachineConfigData(
         'Content-Type': 'application/json'
         }
     };
-
-    // console.log("candyMacghibeCIbfuge handle: ",candyMachineConfigHandle)
 
     const response = await axios.post(`${NODE_URL}/tables/${candyMachineConfigHandle}/item`, data, customConfig);
     const cmConfigData = response.data;

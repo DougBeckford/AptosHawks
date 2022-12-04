@@ -164,7 +164,6 @@ export default function Home() {
     console.log("Fetching candy machine data...")
     if (indicateIsFetching) setIsFetchignCmData(true)
     const cmResourceAccount = await cmHelper.getCandyMachineResourceAccount();
-    console.log("cmResourcesAccount: ",cmResourceAccount)
     if (cmResourceAccount === null) {
       setCandyMachineData({...candyMachineData, data: {}})
       setIsFetchignCmData(false)
@@ -172,9 +171,7 @@ export default function Home() {
     }
 
     const collectionInfo = await cmHelper.getCandyMachineCollectionInfo(cmResourceAccount);
-    console.log("collectionInfo::::: ",collectionInfo)
     const configData = await cmHelper.getCandyMachineConfigData(collectionInfo.candyMachineConfigHandle);
-    //here?
     setCandyMachineData({...candyMachineData, data: {cmResourceAccount, ...collectionInfo, ...configData}})
     setIsFetchignCmData(false)
   }
@@ -214,28 +211,12 @@ export default function Home() {
     setCanMint(true)
   }, [wallet, candyMachineData, timeLeftToMint])
 
-  const [user,setUser] = useState("");
-  const [userAddress,setUserAddress]=useState("")
-
-  const handleTheClick = async (user) =>{
-    const firstThree = user.substring(0,3)
-    const lastThree = user.substring(user.length-3,user.length)
-    const totalSix = firstThree + "..." + lastThree
-    setUser(totalSix)
-    setUserAddress(user)
-    console.log("poutsa")
-  }
-
-  useEffect(()=>{
-    console.log("user",user.length)
-  },[user])
-
   return (
     <div className="bg-gray-500">
       <div className={styles.container}>
         <Head>
-          <title>cock sucker</title>
-          <meta name="description" content="cock sucker Mint" />
+          <title>Nevermores Mint</title>
+          <meta name="description" content="Nevermores Mint" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
@@ -253,11 +234,8 @@ export default function Home() {
           <h1 className={styles.title}>
             {collectionName}
           </h1>
-          <div className={styles.topcornerMore}>
-            <h1 onClick={() => {navigator.clipboard.writeText(userAddress)}} >{user? user.substring(0,10) : null}</h1>
-          </div>
           <div className={styles.topcorner}>
-            <ConnectWalletButton handleTheClick={handleTheClick} connectButton={!wallet.connected} className="d-flex" />
+            <ConnectWalletButton connectButton={!wallet.connected} className="d-flex" />
           </div>
           <img src={collectionCoverUrl} className={styles.mintimage} />
           <div id="collection-info" className="d-flex flex-column align-items-center text-white" style={{width: "80%"}}>
